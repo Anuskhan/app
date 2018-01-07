@@ -1,0 +1,30 @@
+.title{
+
+  text-align: center;
+  font-size: 30;
+}
+.heading{
+  color:#26C6DA
+
+}
+.center{
+ 
+  margin: 0 auto;
+}
+.head{ display:inline
+;
+color:#26C6DA;
+margin-left: 5%;
+text-align: center;
+
+}
+.missing{
+  display:inline;
+  margin-left: 30%;
+  text-align: center;
+  color:#26C6DA;
+  
+}
+.over{
+  overflow: hidden;
+}
