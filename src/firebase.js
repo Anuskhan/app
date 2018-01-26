@@ -1,13 +1,12 @@
 import firebase from 'firebase';
-var config = {
-  apiKey: "AIzaSyBTPmzrFMXBqB-ZPvesZ3oe0zkXPs4tzeI",
-  authDomain: "lab-app-2814a.firebaseapp.com",
-  databaseURL: "https://lab-app-2814a.firebaseio.com",
-  projectId: "lab-app-2814a",
-  storageBucket: "lab-app-2814a.appspot.com",
-  messagingSenderId: "313340570688"
+
+  var config = {
+    apiKey: "AIzaSyAiTTuPpNj4iVoYd2qEiREadyvNcTiYrAk",
+    authDomain: "portfolio-afdfb.firebaseapp.com",
+    databaseURL: "https://portfolio-afdfb.firebaseio.com",
+    projectId: "portfolio-afdfb",
+    storageBucket: "portfolio-afdfb.appspot.com",
+    messagingSenderId: "8634159581"
   };
   let fire=firebase.initializeApp(config);
-
-
   export default fire; 

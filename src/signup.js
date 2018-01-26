@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import TextField from 'material-ui/TextField';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
+
 import './App.css';
-import {browserHistory} from 'react-router';
+// import {browserHistory} from 'react-router';
 import fire from './firebase';
 
 let that=this;
@@ -19,82 +16,52 @@ constructor(props){
 
   }
 }
+signup=()=>{
 
-  signUp=()=>{
-    if(this.state.pass!=="" && this.state.email!=="" && this.state.pass!==""){
-    let state=this.state;
-    let database = fire.database().ref('/')
-    let stateObj={
-        name:state.name,
-        email:state.email,
-        pass:state.pass
-    }
-    fire.auth().createUserWithEmailAndPassword(stateObj.email,stateObj.pass)
-    .then((res)=>{
-        stateObj.userID = res.uid;
-        database.child('users/' + res.uid).set(stateObj)
-       
-        .then(function(){
-          
-       
-          
-          browserHistory.push("/home")    
-        })
-  })
-   .catch((error)=>{
-      console.log(alert(error));
-    })
+  let stateobj ={
+    name:this.state.name,
+    email:this.state.email,
+    pass:this.state.pass
   }
-  else{alert("fill All field")}
+  fire.auth().createUserWithEmailAndPassword(stateobj.email,stateobj.pass)
+  .then((res)=>{
+    console.log("success")
+    stateobj.key=res.uid;
+      fire.database().ref("/").child("user/"+res.uid).set(stateobj)
+    .then(()=>{
+      
+    })
+    })
+    .catch((error)=>{console.log(error)})
+
+
 }
+  
   valueGet=(inputFld,ev)=>{
     let obj={}
     obj[inputFld]=ev.target.value;
     this.setState(obj)
-    // console.log(this.state.inputFld)
+    console.log(obj)
   }
 
-  comChange=()=>{
-    console.log("work")
-        browserHistory.push("/login")
+  // comChange=()=>{
+  //   console.log("work")
+  //       browserHistory.push("/login")
   
-  }
+  // }
 
   
     render(){
-     
-
 return(
-<MuiThemeProvider>
-    <div  className="title">
-<AppBar 
-    title="SignUp"   className="title"
-    iconClassNameRight="muidocs-icon-navigation-expand-more"
-  />
-   <TextField
-      hintText="Name" onChange={(ev)=>{this.valueGet("user",ev)}}
-      floatingLabelText="User Name"
-      type="Text"
-    />
-    <br/>
-    <TextField
-      hintText="Email" onChange={(ev)=>{this.valueGet("email",ev)}}
-      floatingLabelText="User Email"
-      type="Email"
-    />
-    <br/>
-    <TextField
-      hintText="Password " onChange={(ev)=>{this.valueGet("pass",ev)}}
-      floatingLabelText="User Password"
-      type="password"
-    />
-    <br/>
-    <RaisedButton label="SigUp" onClick={this.signUp} primary={true} style={{margin: 15}} />
-    
-  <RaisedButton label="Login" onClick={this.comChange} primary={true} style={{margin: 15}} />
+    <div>
+      <input type="text" value={this.state.name} onChange={(ev)=>{this.valueGet("name",ev)}}/>
+      <input type="email" value={this.state.email} onChange={(ev)=>{this.valueGet("email",ev)}}/>
+      <input type="password" value={this.state.pass} onChange={(ev)=>{this.valueGet("pass",ev)}}/>
+        <button onClick={this.signup}>submit</button>
+
     </div>
-  
-  </MuiThemeProvider>
+
+
 );
 }
 }
